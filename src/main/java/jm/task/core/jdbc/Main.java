@@ -1,6 +1,12 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
+import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserServiceImpl;
+import jm.task.core.jdbc.util.Util;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 
 public class Main {
@@ -13,6 +19,14 @@ public class Main {
         System.out.println(userService.getAllUsers().toString());
         userService.dropUsersTable();
 
+        //Hibernate
+        UserDaoHibernateImpl userDaoHibernate = new UserDaoHibernateImpl();
+        userDaoHibernate.createUsersTable();
+        userDaoHibernate.saveUser("Bob", "Cotly", (byte) 12);
+        userDaoHibernate.removeUserById(8);
+        userDaoHibernate.cleanUsersTable();
+        System.out.println(userDaoHibernate.getAllUsers().toString());
+        userDaoHibernate.dropUsersTable();
 
     }
 }
